@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Butaca10 - Tu gestor de películas</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#E63946">
+    <meta name="description" content="Gestiona tus películas favoritas con Butaca10">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="icons/icon-192x192.svg">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.svg">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader"></div>
+        <p>Cargando Butaca10...</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar" style="display: none;">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>🎬 Butaca10</h1>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="btn-icon" title="Cambiar tema">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="logout-btn" class="btn-secondary">Cerrar Sesión</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main id="main-container">
+        <!-- Login/Register Screen -->
+        <section id="auth-screen" class="screen active">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h1>🎬 Butaca10</h1>
+                    <p>Tu gestor personal de películas</p>
+                </div>
+                
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">Iniciar Sesión</button>
+                    <button class="tab-btn" data-tab="register">Registrarse</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Contraseña</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Iniciar Sesión</button>
+                </form>
+
+                <!-- Register Form -->
+                <form id="register-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="register-name">Nombre</label>
+                        <input type="text" id="register-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Contraseña</label>
+                        <input type="password" id="register-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm">Confirmar Contraseña</label>
+                        <input type="password" id="register-confirm" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Registrarse</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Dashboard Screen -->
+        <section id="dashboard-screen" class="screen">
+            <div class="dashboard-container">
+                <!-- Dashboard Header -->
+                <div class="dashboard-header">
+                    <h2>Mi Dashboard</h2>
+                    <div class="header-actions">
+                        <button id="my-banks-btn" class="btn-secondary">Mis Bancos (0)</button>
+                        <button id="create-bank-btn" class="btn-primary">+ Crear Banco</button>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label for="genre-filter">Género:</label>
+                        <select id="genre-filter">
+                            <option value="">Todos los géneros</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="year-filter">Año:</label>
+                        <select id="year-filter">
+                            <option value="">Todos los años</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="search-input">Buscar:</label>
+                        <input type="text" id="search-input" placeholder="Buscar película...">
+                    </div>
+                </div>
+
+                <!-- Movies Grid -->
+                <div id="movies-grid" class="movies-grid">
+                    <!-- Movies will be loaded here -->
+                </div>
+
+                <!-- Load More Button -->
+                <div class="load-more-container">
+                    <button id="load-more-btn" class="btn-secondary">Cargar más películas</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Banks Screen -->
+        <section id="banks-screen" class="screen">
+            <div class="banks-container">
+                <div class="banks-header">
+                    <h2>Mis Bancos de Películas</h2>
+                    <button id="back-to-dashboard" class="btn-secondary">← Volver al Dashboard</button>
+                </div>
+                <div id="banks-grid" class="banks-grid">
+                    <!-- Banks will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Bank Detail Screen -->
+        <section id="bank-detail-screen" class="screen">
+            <div class="bank-detail-container">
+                <div class="bank-detail-header">
+                    <h2 id="bank-detail-title">Banco de Películas</h2>
+                    <div class="bank-actions">
+                        <button id="random-movie-btn" class="btn-primary">🎲 Película Aleatoria</button>
+                        <button id="delete-bank-btn" class="btn-danger">🗑️ Eliminar Banco</button>
+                        <button id="back-to-banks" class="btn-secondary">← Volver</button>
+                    </div>
+                </div>
+
+                <div class="bank-sections">
+                    <!-- Pending Movies -->
+                    <div class="bank-section">
+                        <h3>Películas Pendientes (<span id="pending-count">0</span>)</h3>
+                        <div id="pending-movies" class="bank-movies-grid">
+                            <!-- Pending movies will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Watched Movies -->
+                    <div class="bank-section">
+                        <h3>Películas Vistas (<span id="watched-count">0</span>)</h3>
+                        <div id="watched-movies" class="bank-movies-grid">
+                            <!-- Watched movies will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <!-- Create Bank Modal -->
+    <div id="create-bank-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Crear Nuevo Banco</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="create-bank-form">
+                <div class="form-group">
+                    <label for="bank-name">Nombre del Banco:</label>
+                    <input type="text" id="bank-name" placeholder="Ej: Películas de Terror" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary modal-cancel">Cancelar</button>
+                    <button type="submit" class="btn-primary">Crear Banco</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add to Bank Modal -->
+    <div id="add-to-bank-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Añadir a Banco</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Selecciona el banco donde añadir la película:</p>
+                <div id="banks-list" class="banks-list">
+                    <!-- Banks list will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Random Movie Modal -->
+    <div id="random-movie-modal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>¡Tu película seleccionada!</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="random-movie-content">
+                    <!-- Selected movie will be shown here -->
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="mark-as-watched" class="btn-primary">Marcar como Vista</button>
+                <button class="btn-secondary modal-cancel">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/movies.js"></script>
+    <script src="js/banks.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(registration => console.log('SW registered'))
+                .catch(error => console.log('SW registration failed'));
+        }
+    </script>
+</body>
+</html>

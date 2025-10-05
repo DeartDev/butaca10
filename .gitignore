@@ -1,0 +1,160 @@
+# Butaca10 - .gitignore
+
+# Environment variables and sensitive configuration
+.env
+.env.local
+.env.production
+.env.staging
+*.key
+*.pem
+
+# Database files
+*.sql.backup
+*.sql.bak
+backup_*.sql
+database_backup_*
+
+# Logs
+logs/
+*.log
+error.log
+access.log
+php_errors.log
+apache_error.log
+mysql_error.log
+
+# Temporary files and caches
+tmp/
+temp/
+cache/
+.cache/
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# PHP specific
+vendor/
+composer.phar
+composer.lock
+*.phar
+
+# Node.js (if using build tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# Test files
+test.php
+test_*.php
+debug.php
+diagnostic.php
+setup_db.php
+phpinfo.php
+
+# Upload directories
+uploads/
+files/
+media/
+
+# Backup files
+*.backup
+*.bak
+*.old
+*_backup
+*_old
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Development and testing
+development.md
+DEVELOPMENT.md
+TODO.md
+NOTES.md
+
+# Security files
+*.htpasswd
+*.htaccess.backup
+ssl/
+certificates/
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Production build artifacts
+build/
+dist/
+public/build/
+
+# Local configuration overrides
+config.local.php
+local_config.php
+
+# Session files
+sessions/
+*.sess
+
+# Error pages (development)
+error_pages/
+
+# Analytics and tracking data
+analytics/
+tracking/
+
+# Maintenance mode files
+maintenance.html
+down.html
+
+# Webpack and build tools
+webpack-stats.json
+.webpack/
+
+# Docker files (if using containerization)
+.dockerignore
+docker-compose.override.yml
+
+# Miscellaneous
+*.zip
+*.tar.gz
+*.rar
+*.7z
